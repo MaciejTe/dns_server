@@ -1,0 +1,15 @@
+FROM golang:1.22.0 as build
+
+WORKDIR /app
+
+# Copy golang dependency manifests
+COPY go.mod .
+COPY go.sum .
+
+# Cache the downloaded dependency in the layer
+RUN go mod download
+
+# Copy the source code
+COPY . .
+
+ENTRYPOINT sleep infinity

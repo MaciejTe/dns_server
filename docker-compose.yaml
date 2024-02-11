@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+
+  redis:
+    container_name: redis
+    network_mode: "host"
+    image: redis/redis-stack:latest
+    restart: always
+    # ports:
+    #   - '6379:6379'
+    #   - '8001:8001'
+    volumes: 
+      - cache:/data
+  
+  dns_server:
+    network_mode: "host"
+    container_name: dns_server
+    image: dns_server:latest
+    # ports:
+    #   - 53000:53000
+    volumes:
+      - .:/app
+volumes:
+  cache:
+    driver: local
